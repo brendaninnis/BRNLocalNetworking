@@ -1,6 +1,6 @@
 # BRNLocalNetworking
 
-[![CI Status](https://img.shields.io/travis/brendan-wholepunk/BRNLocalNetworking.svg?style=flat)](https://travis-ci.org/brendan-wholepunk/BRNLocalNetworking)
+[![CI Status](https://img.shields.io/travis/brendaninnis/BRNLocalNetworking.svg?style=flat)](https://travis-ci.org/brendaninnis/BRNLocalNetworking)
 [![Version](https://img.shields.io/cocoapods/v/BRNLocalNetworking.svg?style=flat)](https://cocoapods.org/pods/BRNLocalNetworking)
 [![License](https://img.shields.io/cocoapods/l/BRNLocalNetworking.svg?style=flat)](https://cocoapods.org/pods/BRNLocalNetworking)
 [![Platform](https://img.shields.io/cocoapods/p/BRNLocalNetworking.svg?style=flat)](https://cocoapods.org/pods/BRNLocalNetworking)
@@ -22,7 +22,7 @@ pod 'BRNLocalNetworking'
 
 ## Author
 
-brendan-wholepunk, innisbrendan@gmail.com
+Brendan Innis, innisbrendan@gmail.com
 
 ## License
 

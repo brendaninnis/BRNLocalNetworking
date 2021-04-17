@@ -1,0 +1,6 @@
+framework module BRNLocalNetworking {
+  umbrella header "BRNLocalNetworking-umbrella.h"
+
+  export *
+  module * { export * }
+}

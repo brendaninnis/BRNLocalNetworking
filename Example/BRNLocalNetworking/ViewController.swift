@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  BRNLocalNetworking
 //
-//  Created by brendan-wholepunk on 04/17/2021.
-//  Copyright (c) 2021 brendan-wholepunk. All rights reserved.
+//  Created by brendaninnis on 04/17/2021.
+//  Copyright (c) 2021 brendaninnis. All rights reserved.
 //
 
 import UIKit
