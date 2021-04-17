@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'BRNLocalNetworking'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of BRNLocalNetworking.'
+  s.summary          = 'Local networking for more than once instance of your app'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Connect and pass data between more than one instance of the same app over the local area network
                        DESC
 
   s.homepage         = 'https://github.com/brendaninnis/BRNLocalNetworking'
@@ -32,12 +32,14 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'BRNLocalNetworking/Classes/**/*'
   
+  s.swift_version = '5.0'
+  
   # s.resource_bundles = {
   #   'BRNLocalNetworking' => ['BRNLocalNetworking/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'CocoaAsyncSocket', '~> 7.6'
+  s.dependency 'CocoaAsyncSocket', '~> 7.6.5'
 end
 

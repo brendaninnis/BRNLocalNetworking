@@ -75,7 +75,7 @@ extension BRNDiscovery: NetServiceBrowserDelegate {
         let dict = NetService.dictionary(fromTXTRecord: data)
         print(dict)
         if let data = dict["Hello"] {
-            print(String(data: data, encoding: .utf8))
+            print(String(data: data, encoding: .utf8) ?? "Error deserializing Hello String")
         }
     }
     
