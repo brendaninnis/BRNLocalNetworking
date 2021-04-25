@@ -16,6 +16,7 @@ internal class BRNDiscovery: NSObject {
     
     private var socket: GCDAsyncSocket?
     
+    private var browserRunning = false
     private lazy var netServiceBrowser: NetServiceBrowser = {
         return NetServiceBrowser()
     }()
@@ -31,30 +32,51 @@ internal class BRNDiscovery: NSObject {
         }
 
         let port = socket!.localPort
+        let name = "BRNLocalNetworking-\(getRandomNameSuffix())"
         
-        return NetService(domain: "local.", type: "_BRNLocalNetworking._tcp", name: "BRNLocalNetworking", port: Int32(port))
+        return NetService(domain: "local.", type: "_BRNLocalNetworking._tcp", name: name, port: Int32(port))
     }()
+    private var discoveredServices: [NetService] = []
     
     public func start() {
+        print("Start Discovery")
         startPeerBroadcast()
         startDiscovery()
     }
     
     private func startPeerBroadcast() {
+        print("Starting peer broadcast")
         netService?.delegate = self
-        netService?.setTXTRecord(NetService.data(fromTXTRecord: [
-            "Hello": "World!".data(using: .utf8)!
-        ]))
         netService?.publish()
     }
     
     private func startDiscovery() {
+        guard !browserRunning else {
+            return
+        }
+        print("Starting peer discovery")
         netServiceBrowser.delegate = self
         netServiceBrowser.searchForServices(ofType: "_BRNLocalNetworking._tcp", inDomain: "local.")
+        browserRunning = true
     }
     
     private func isPreferredServer() -> Bool {
         return true
+    }
+    
+    private func getRandomNameSuffix() -> NSString {
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = 8
+
+        let randomString : NSMutableString = NSMutableString(capacity: len)
+
+        for _ in 1...len{
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.character(at: Int(rand)))
+        }
+        
+        return randomString
     }
 }
 
@@ -67,19 +89,19 @@ extension BRNDiscovery: NetServiceBrowserDelegate {
     }
     
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
-        print("NetServiceBrowser did find: \(service)")
-        guard let data = service.txtRecordData() else {
-            print("Error: NetService textRecordData == nil")
+        guard service != netService else {
             return
         }
-        let dict = NetService.dictionary(fromTXTRecord: data)
-        print(dict)
-        if let data = dict["Hello"] {
-            print(String(data: data, encoding: .utf8) ?? "Error deserializing Hello String")
+        guard !discoveredServices.contains(service) else {
+            return
         }
+        discoveredServices.append(service)
+        service.delegate = self
+        service.resolve(withTimeout: 5)
     }
     
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
+        browserRunning = false
         print("NetServiceBrowser did stop search")
     }
 }
@@ -117,14 +139,32 @@ extension BRNDiscovery: NetServiceDelegate {
     
     func netServiceDidResolveAddress(_ sender: NetService) {
         print("NetService did resolve: \(sender)")
+        
+        // Subscribe to TXT record updates
+        sender.startMonitoring()
+    }
+    
+    func netService(_ sender: NetService, didUpdateTXTRecord data: Data) {
+        let dict = NetService.dictionary(fromTXTRecord: data)
+        print(dict)
+        if let data = dict["Hello"] {
+            print(String(data: data, encoding: .utf8) ?? "Error deserializing Hello String")
+        }
     }
     
     // Host
     func netServiceDidPublish(_ sender: NetService) {
         print("Bonjour Service Published: domain(\(sender.domain)) type(\(sender.type)) name(\(sender.name)) port(\(sender.port))")
+        
+        if !sender.setTXTRecord(NetService.data(fromTXTRecord: [
+            "Hello": "World!".data(using: .utf8)!
+        ])) {
+            print("Failed to set TXTRecord")
+        }
     }
     
     func netService(_ sender: NetService, didNotPublish errorDict: [String : NSNumber]) {
         print("Failed to publish Bonjour Service domain(\(sender.domain)) type(\(sender.type)) name(\(sender.name))\n\(errorDict)")
+        // TODO: Catch NetServicesCollisionError -72001 and publish with a new name
     }
 }

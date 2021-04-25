@@ -3,6 +3,7 @@ use_frameworks!
 platform :ios, '9.0'
 
 target 'BRNLocalNetworking_Example' do
+  
   pod 'BRNLocalNetworking', :path => '../'
 
   target 'BRNLocalNetworking_Tests' do

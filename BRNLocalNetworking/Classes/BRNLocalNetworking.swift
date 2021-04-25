@@ -21,13 +21,15 @@ public class BRNLocalNetworking {
         networkingQueue = queue
     }
     
-    public func start() {
-        networkingQueue.async {
+    public func startAutoJoinOrHost() {
+        print("BRNLocalNetworking - Starting automatic host or join")
+//        networkingQueue.async {
             self.discovery.start()
-        }
+//        }
     }
     
     public func startJoining() {
+        print("BRNLocalNetworking - Starting joining")
 //
 //        // After 3 seconds, if no service has been found, start one
 //        hostAfterTask = DispatchWorkItem {
@@ -42,6 +44,7 @@ public class BRNLocalNetworking {
     }
     
     public func startHosting() {
+        print("BRNLocalNetworking - Starting hosting")
         
     }
 }

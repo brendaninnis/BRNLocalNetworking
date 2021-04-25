@@ -1,5 +1,7 @@
 PODS:
-  - BRNLocalNetworking (0.1.0)
+  - BRNLocalNetworking (0.1.0):
+    - CocoaAsyncSocket (~> 7.6.5)
+  - CocoaAsyncSocket (7.6.5)
   - Nimble (8.0.9)
   - Quick (2.2.1)
 
@@ -10,6 +12,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CocoaAsyncSocket
     - Nimble
     - Quick
 
@@ -18,10 +21,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BRNLocalNetworking: b5aee5b74ac954f2cce51dcb6c69130e7b971d91
+  BRNLocalNetworking: 343854ff246da0f760d25a6bbe982998569a8bc5
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   Nimble: 98b888285a615fd34f20e61753cf58ea1402bde4
   Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
 
-PODFILE CHECKSUM: 268de481e8a4d362aa3d775bfa64dcce19691233
+PODFILE CHECKSUM: 8f6a973fc59490822963192cf1d2723f156c7473
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

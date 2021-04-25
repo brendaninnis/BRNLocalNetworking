@@ -1,22 +1,29 @@
 {
   "name": "BRNLocalNetworking",
   "version": "0.1.0",
-  "summary": "A short description of BRNLocalNetworking.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/brendan-wholepunk/BRNLocalNetworking",
+  "summary": "Local networking for more than once instance of your app",
+  "description": "Connect and pass data between more than one instance of the same app over the local area network",
+  "homepage": "https://github.com/brendaninnis/BRNLocalNetworking",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "brendan-wholepunk": "innisbrendan@gmail.com"
+    "brendaninnis": "innisbrendan@gmail.com"
   },
   "source": {
-    "git": "https://github.com/brendan-wholepunk/BRNLocalNetworking.git",
+    "git": "https://github.com/brendaninnis/BRNLocalNetworking.git",
     "tag": "0.1.0"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "BRNLocalNetworking/Classes/**/*"
+  "source_files": "BRNLocalNetworking/Classes/**/*",
+  "swift_versions": "5.0",
+  "dependencies": {
+    "CocoaAsyncSocket": [
+      "~> 7.6.5"
+    ]
+  },
+  "swift_version": "5.0"
 }
